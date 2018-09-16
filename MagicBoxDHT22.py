@@ -16,7 +16,3 @@ class MagicBoxDHT22(object):
         self.s=DHT22.sensor(self.pi, 4)
         self.tempF=0
         self.humidity=0
-        # test code #
-        self.s.trigger()
-        time.sleep(0.2)
-        print(self.s.temperature())
