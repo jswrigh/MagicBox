@@ -63,13 +63,18 @@ class MagicBoxView(tk.Frame):
         self.labelTwo.grid(row=2, column=1)
 
         self.three = tk.Button(self)
-        self.three["text"] = "Task 3"
+        self.three["text"] = "ExtTemp"
         self.three.grid(row=1, column=2)
 
+        self.labelThree = tk.Label(self, text="ExtTemp")
+        self.labelThree.grid(row=2, column=2)
+
         self.four = tk.Button(self)
-        self.four["text"] = "Task 4"
+        self.four["text"] = "IFeel"
         self.four.grid(row=1, column=3)
 
+        self.labelFour = tk.Label(self, text="IFeel")
+        self.labelFour.grid(row=2, column=3)
 
 
     def __init__(self, master=None):
