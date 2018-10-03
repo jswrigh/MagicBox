@@ -46,7 +46,7 @@ class MagicBoxView(tk.Frame):
             row=0, column=0,columnspan=4, sticky = tk.E+tk.W )
 
       
-        # Create the three buttons
+        # Create the top row of four buttons
 
         self.one = tk.Button(self)
         self.one["text"] = "Current Temp"
@@ -76,13 +76,43 @@ class MagicBoxView(tk.Frame):
         self.labelFour = tk.Label(self, text="IFeel")
         self.labelFour.grid(row=2, column=3)
 
+        # Create the bottom row of four buttons
+
+        self.bOne = tk.Button(self)
+        self.bOne["text"] = "Current Temp"
+        self.bOne.grid(row=4, column=0)
+
+        self.labelBOne = tk.Label(self, text="Temp")
+        self.labelBOne.grid(row=5, column=0)
+
+        self.bTwo = tk.Button(self)
+        self.bTwo["text"] = "Current R.H."
+        self.bTwo.grid(row=4, column=1)
+     
+        self.labelBTwo = tk.Label(self, text="RelHum")
+        self.labelBTwo.grid(row=5, column=1)
+
+        self.bThree = tk.Spinbox(self, from_=50, to=90)
+        self.bThree["width"] = 10
+        self.bThree["justify"]="center"
+        self.bThree.grid(row=4, column=2)
+
+        self.labelBThree = tk.Label(self, text="ExtTemp")
+        self.labelBThree.grid(row=5, column=2)
+
+        self.bFour = tk.Button(self)
+        self.bFour["text"] = "IFeel"
+        self.bFour.grid(row=4, column=3)
+
+        self.labelBFour = tk.Label(self, text="IFeel")
+        self.labelBFour.grid(row=5, column=3)
+
 
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
         self.grid()
         # option is needed to put the main label in the window
         self.createWidgets()
-
         
     
 

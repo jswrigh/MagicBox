@@ -1,0 +1,1 @@
+{"environment": {"outsideTemp": 72.55, "insideTemp": 74.92, "insideHumidity": 61}, "settings": {"setTemp": "60", "iFeel": "-5"}}

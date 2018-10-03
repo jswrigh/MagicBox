@@ -35,12 +35,12 @@ def main():
     }
 
     # Setup connection to openweathermap to get outdoor temperature
-    owm = pyowm.OWM('123e236852641b9b3bfd755ffa553566')  # You MUST provide a valid API key
-    observation = owm.weather_at_id(4752031)
-    w = observation.get_weather()
-    print(w.get_wind())
-    print(w.get_humidity())
-    print(w.get_temperature('fahrenheit'))
+    #owm = pyowm.OWM('123e236852641b9b3bfd755ffa553566')  # You MUST provide a valid API key
+    #observation = owm.weather_at_id(4752031)
+    #w = observation.get_weather()
+    #print(w.get_wind())
+    #print(w.get_humidity())
+    #print(w.get_temperature('fahrenheit'))
 
     # Setup connection to internal DHT22 temperature probe
     # Intervals of about 2 seconds or less will eventually hang the DHT22.

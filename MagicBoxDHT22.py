@@ -8,7 +8,7 @@ class MagicBoxDHT22(object):
     def DHT22(self):
         self.s.trigger()
         time.sleep(0.2)
-        self.tempF=round(self.s.temperature()*1.8+32,2) #+adjustment
+        self.tempF=round(self.s.temperature()*1.8+32,2) -3.7 #+adjustment
         self.humidity=round(self.s.humidity())
 
     def __init__(self):

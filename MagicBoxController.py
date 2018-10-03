@@ -10,20 +10,24 @@ class MagicBoxController(object):
         pass
 
     def showBoxTemp(self):
-        self.s.DHT22()
-        self.view.labelOne.configure(text=self.s.tempF)
+        self.nowTemp = self.q.updateInsideTemp()
+        self.view.labelOne.configure(text=self.nowTemp)
 
     def showBoxHumidity(self):
-        self.s.DHT22()
-        self.view.labelTwo.configure(text=self.s.humidity)
+        self.nowHumidity = self.q.updateInsideHumidity()
+        self.view.labelTwo.configure(text=self.nowHumidity)
 
     def showOutTemp(self):
-        self.q.readQ()
-        self.view.labelThree.configure(text=self.q.data['environment']['outsideTemp'])
+        self.nowExtTemp = self.q.updateOutsideTemp()
+        self.view.labelThree.configure(text=self.nowExtTemp)
 
     def showIFeel(self):
         self.q.readQ()
         self.view.labelFour.configure(text=self.q.data['settings']['iFeel'])
+
+    def readSetTemp(self):
+        self.q.data['settings']['setTemp']=self.view.bThree.get()
+        self.q.writeQ()
         
 
     def init_view(self,root):
@@ -40,6 +44,7 @@ class MagicBoxController(object):
         self.view.two["command"] = self.showBoxHumidity
         self.view.three["command"] = self.showOutTemp
         self.view.four["command"] = self.showIFeel
+        self.view.bThree["command"] = self.readSetTemp
 
         # Start the gui 
         self.view.start_gui()
