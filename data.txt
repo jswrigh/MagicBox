@@ -1,1 +1,1 @@
-{"settings": {"iFeel": "-5", "setTemp": "700"}, "environment": {"insideTemp": "600", "insideHumidity": 52, "outsideTemp": "500"}}
+{"environment": {"insideTemp": "600", "outsideTemp": 68.32, "outsideHumidity": 75, "insideHumidity": "300"}, "settings": {"iFeel": "-5", "setTemp": "700"}}

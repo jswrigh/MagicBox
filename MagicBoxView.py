@@ -157,10 +157,10 @@ class MagicBoxView(tk.Frame):
         self.bRow8Col0 = tk.Button(self)
         self.bRow8Col0["text"] = "GET"
         self.bRow8Col0.grid(row=8, column=0)
-        self.bRow9Col0 = tk.Spinbox(self, from_=50, to=90)
-        self.bRow9Col0["width"] = 10
-        self.bRow9Col0["justify"]="center"
-        self.bRow9Col0.grid(row=9, column=0)
+        self.eRow9Col0 = tk.Entry(self)
+        self.eRow9Col0["width"] = 10
+        self.eRow9Col0["justify"]="center"
+        self.eRow9Col0.grid(row=9, column=0)
         self.lRow10Col0 = tk.Label(self, text="ExtTemp")
         self.lRow10Col0.grid(row=10, column=0)
         self.bRow11Col0 = tk.Button(self)
@@ -173,10 +173,10 @@ class MagicBoxView(tk.Frame):
         self.bRow8Col1 = tk.Button(self)
         self.bRow8Col1["text"] = "GET"
         self.bRow8Col1.grid(row=8, column=1)
-        self.bRow9Col1 = tk.Spinbox(self, from_=50, to=90)
-        self.bRow9Col1["width"] = 10
-        self.bRow9Col1["justify"]="center"
-        self.bRow9Col1.grid(row=9, column=1)
+        self.eRow9Col1 = tk.Entry(self)
+        self.eRow9Col1["width"] = 10
+        self.eRow9Col1["justify"]="center"
+        self.eRow9Col1.grid(row=9, column=1)
         self.lRow10Col1 = tk.Label(self, text="ExtRH")
         self.lRow10Col1.grid(row=10, column=1)
         self.bRow11Col1 = tk.Button(self)
