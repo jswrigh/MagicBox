@@ -45,14 +45,30 @@ class MagicBoxQueue(object):
         self.data['environment']['insideTemp'] = nowTemp
         self.writeQ()
         return(nowTemp)
+
+    def getInsideTemp(self):
+        self.readQ()
+        return(self.data['environment']['insideTemp'])
+
+    def setInsideTemp(self, nowTemp):
+        self.data['environment']['insideTemp'] = nowTemp
+        self.writeQ()
         
-    def updateInsideHumidity(self):
+    def updateInsideRh(self):
         self.dht22.DHT22()
         nowHumidity = self.dht22.humidity
         self.data['environment']['insideHumidity'] = nowHumidity
         self.writeQ()
         return(nowHumidity)
 
+    def getInsideRh(self):
+        self.readQ()
+        return(self.data['environment']['insideHumidity'])
+
+    def setInsideRh(self, nowRh):
+        self.data['environment']['insideHumidity'] = nowRh
+        self.writeQ()
+        
     def updateOutsideTemp(self):
         nowWeather = self.observation.get_weather()
         nowExtTemp = nowWeather.get_temperature('fahrenheit')['temp']
