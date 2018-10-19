@@ -81,6 +81,25 @@ class MagicBoxController(object):
         self.view.eRow9Col1["fg"] = "green"
         self.view.eRow9Col1.insert(0,self.nowRh)
 
+    def updateRemLrTemp(self):
+        self.nowTemp = self.q.updateRemoData('Sandi Living Room','te')
+        self.view.eRow3Col2.delete(0,10)
+        self.view.eRow3Col2["fg"] = "black"
+        self.view.eRow3Col2.insert(0,self.nowTemp)
+
+    def getRemLrTemp(self):
+        self.nowTemp = self.q.getRemoData('Sandi Living Room','te')
+        self.view.eRow3Col2.delete(0,10)
+        self.view.eRow3Col2.insert(0,self.nowTemp)
+
+    def setRemLrTemp(self):
+        self.nowTemp = float(self.view.eRow3Col2.get())
+        self.q.setRemoData('Sandi Living Room','te', self.nowTemp)
+        self.view.eRow3Col2.delete(0,10)
+        self.view.eRow3Col2["fg"] = "green"
+        self.view.eRow3Col2.insert(0,self.nowTemp)
+
+
     def showRemLrTemp(self): #NEEDS UPDATE
         self.q.readQ()
         self.view.lRow1Col2.configure(text=self.q.data['settings']['iFeel'])
@@ -168,7 +187,10 @@ class MagicBoxController(object):
         self.view.bRow7Col1["command"] = self.updateExtRH
         self.view.bRow8Col1["command"] = self.getExtRH
         self.view.bRow11Col1["command"] = self.setExtRH
-#        self.view.bRow1Col2["command"] = self.showRemLrTemp
+        self.view.bRow1Col2["command"] = self.updateRemLrTemp
+        self.view.bRow2Col2["command"] = self.getRemLrTemp
+        self.view.bRow5Col2["command"] = self.setRemLrTemp
+        
 #        self.view.bRow1Col3["command"] = self.showRemLrRH
 #        self.view.bRow1Col4["command"] = self.showRemBrTemp
 #        self.view.bRow1Col5["command"] = self.showRemBrRH

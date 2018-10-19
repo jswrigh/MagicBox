@@ -3,6 +3,11 @@ import requests
 import pyowm # Open source library for accessing openweathermap.org data
 from MagicBoxDHT22 import MagicBoxDHT22
 
+headers = {
+    'accept': 'application/json',
+    'Authorization': 'Bearer oh1PJgWskEMq4Km95GRvC_iJvtrMbL8RQJCObPwqKt8.XAg_MhK8zwOFqIueYYPFotfZ8xTOEWAdNv3ZHDRsQkY',
+}
+
 class MagicBoxQueue(object):
 
     def __init__(self):
@@ -11,11 +16,26 @@ class MagicBoxQueue(object):
             'insideTemp': '600',
             'outsideTemp': '500',
             'insideHumidity': '300',
-            'outsideHumidity': '100'
+            'outsideHumidity': '100',
+            'Sandi Living Roomte': '450',
+            'Sandi Living Roomhu' : '550',
+            'Sandi Living Roomil': '350',
+            'Sandi Bedroomte': '450',
+            'Sandi Bedroomhu': '550',
+            'Sandi Bedroomil': '350',
+            'Balsamte': '450',
+            'Balsamhu': '550',
+            'Balsamil': '350',
         }
         self.data['settings'] = {  
             'setTemp': '700',
             'iFeel': '-5',
+        }
+        self.data['status'] = {
+            'gasRelay': 'OFF',
+            'lrRemoCommand': 'H72',
+            'brRemoCommand': 'H70',
+            'bwRemoCommand': 'H68'
         }
         self.dht22=MagicBoxDHT22()
         print(self.dht22.tempF)
@@ -99,6 +119,37 @@ class MagicBoxQueue(object):
     def setOutsideRh(self, nowRh):
         self.data['environment']['outsideHumidity'] = nowRh
         self.writeQ()
-        
+
+    def updateRemoData(self, remoID, type):
+        response = requests.get('https://api.nature.global/1/devices', headers=headers)
+        remData = response.json()
+        print (json.dumps(remData, indent=4, separators=(',', ': '), sort_keys=True))
+        print (len(remData))
+        for x in range (0,len(remData)):
+            print (x)
+            if remData[x]['name'] == remoID:
+                print (remData[x]['name'])
+                if type == 'te':
+                    celsius = float (remData[x]['newest_events'][type]['val'])
+                    fahrenheit = 9.0/5.0 * celsius + 32
+                    print(fahrenheit)
+                    print(round(fahrenheit,1))
+                    print(remoID+type)
+                    self.data['environment'][remoID+type] = round(fahrenheit,1)
+                    self.writeQ()
+                    return(round(fahrenheit,1))
+                else:
+                    self.data['environment'][remoID+type] = remData[x]['newest_events'][type]['val']
+                    self.writeQ()
+                    return(remData[x]['newest_events'][type]['val'])
+
+    def getRemoData(self, remoID, type):
+        self.readQ()
+        return(self.data['environment'][remoID+type])
+
+    def setRemoData(self, remoID, type, envData):
+        self.data['environment'][remoID+type] = envData
+        self.writeQ()
+
 
         

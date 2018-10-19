@@ -91,10 +91,10 @@ class MagicBoxView(tk.Frame):
         self.bRow2Col2 = tk.Button(self)
         self.bRow2Col2["text"] = "GET"
         self.bRow2Col2.grid(row=2, column=2)
-        self.sRow3Col2 = tk.Spinbox(self, from_=50, to=90)
-        self.sRow3Col2["width"] = 10
-        self.sRow3Col2["justify"]="center"
-        self.sRow3Col2.grid(row=3, column=2)
+        self.eRow3Col2 = tk.Entry(self)
+        self.eRow3Col2["width"] = 10
+        self.eRow3Col2["justify"]="center"
+        self.eRow3Col2.grid(row=3, column=2)
         self.lRow4Col2 = tk.Label(self, text="RemLR Temp")
         self.lRow4Col2.grid(row=4, column=2)
         self.bRow5Col2 = tk.Button(self)
@@ -325,7 +325,7 @@ class MagicBoxView(tk.Frame):
         self.bRow15Col4["width"] = 10
         self.bRow15Col4["justify"]="center"
         self.bRow15Col4.grid(row=15, column=4)
-        self.lRow16Col4 = tk.Label(self, text="RESERVED")
+        self.lRow16Col4 = tk.Label(self, text="LR Remo LL")
         self.lRow16Col4.grid(row=16, column=4)
         self.bRow17Col4 = tk.Button(self)
         self.bRow17Col4["text"] = "SIMULATE"
@@ -341,7 +341,7 @@ class MagicBoxView(tk.Frame):
         self.bRow15Col5["width"] = 10
         self.bRow15Col5["justify"]="center"
         self.bRow15Col5.grid(row=15, column=5)
-        self.lRow16Col5 = tk.Label(self, text="RESERVED")
+        self.lRow16Col5 = tk.Label(self, text="BR Remo LL")
         self.lRow16Col5.grid(row=16, column=5)
         self.bRow17Col5 = tk.Button(self)
         self.bRow17Col5["text"] = "SIMULATE"
