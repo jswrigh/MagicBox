@@ -37,6 +37,10 @@ class MagicBoxQueue(object):
             'brRemoCommand': 'H70',
             'bwRemoCommand': 'H68'
         }
+        self.data['signals'] = {
+            'Sandi Living Room': {},'LG Bedroom': {},'LG Family Room': {},'TV': {},
+                    'Family Room AC': {}
+        }
         self.dht22=MagicBoxDHT22()
         print(self.dht22.tempF)
 
@@ -128,7 +132,7 @@ class MagicBoxQueue(object):
         for x in range (0,len(remData)):
             print (x)
             if remData[x]['name'] == remoID:
-                print (remData[x]['name'])
+                print ("name: " + remData[x]['name'])
                 if type == 'te':
                     celsius = float (remData[x]['newest_events'][type]['val'])
                     fahrenheit = 9.0/5.0 * celsius + 32
@@ -143,6 +147,34 @@ class MagicBoxQueue(object):
                     self.writeQ()
                     return(remData[x]['newest_events'][type]['val'])
 
+    def updateRemoSignals(self):
+        response = requests.get('https://api.nature.global/1/appliances', headers=headers)
+        remData = response.json()
+        print (json.dumps(remData, indent=4, separators=(',', ': '), sort_keys=True))
+        print (len(remData))
+        for x in range (0,len(remData)):
+            nickname = remData[x]['nickname']
+            print ("nickname: " + nickname)
+#            print(self.data['signals'])
+#            self.data['signals']['nickname'] = remData[x]['nickname']#['signals']
+            print("---------")
+            for y in range(0,len(remData[x]['signals'])):
+                signalName=remData[x]['signals'][y]['name']
+                signalId=remData[x]['signals'][y]['id']
+                print(signalName + " : " + signalId)
+#                self.data['signals'][nickname][signalName]['id']=signalId
+                self.data['signals'][nickname][signalName]=signalId
+#        print(self.data['signals'])
+        
+    def getRemoOptions(self, nickname):
+        print("XXXXXXXXXX")
+        print(self.data['signals'][nickname])
+        print(self.data['signals'][nickname].keys())
+        codenames = list(self.data['signals'][nickname].keys())
+        for x in range (0, len(codenames)):
+            print(codenames[x])
+        return(codenames)
+    
     def getRemoData(self, remoID, type):
         self.readQ()
         return(self.data['environment'][remoID+type])
@@ -150,6 +182,17 @@ class MagicBoxQueue(object):
     def setRemoData(self, remoID, type, envData):
         self.data['environment'][remoID+type] = envData
         self.writeQ()
+        
+    def getGasRelay(self):
+        self.readQ()
+        return(self.data['status']['gasRelay'])
 
+    def setGasRelay(self, gr):
+        self.data['status']['gasRelay'] = gr
+        self.writeQ()
+    
+    def getLastRemoCmd(self, remoID):
+        self.readQ()
+        return(self.data['status'][remoID])
 
         

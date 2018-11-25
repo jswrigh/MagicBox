@@ -2,6 +2,8 @@
 from MagicBoxView import MagicBoxView
 from MagicBoxDHT22 import MagicBoxDHT22
 import MagicBoxQ
+import time
+import automationhat
 
 class MagicBoxController(object):  
 
@@ -99,6 +101,86 @@ class MagicBoxController(object):
         self.view.eRow3Col2["fg"] = "green"
         self.view.eRow3Col2.insert(0,self.nowTemp)
 
+    def updateRemLrIl(self):
+        self.nowLight = self.q.updateRemoData('Sandi Living Room','il')
+        self.view.eRow3Col3.delete(0,10)
+        self.view.eRow3Col3["fg"] = "black"
+        self.view.eRow3Col3.insert(0,self.nowLight)
+
+    def getRemLrIl(self):
+        self.nowLight = self.q.getRemoData('Sandi Living Room','il')
+        self.view.eRow3Col3.delete(0,10)
+        self.view.eRow3Col3.insert(0,self.nowLight)
+
+    def setRemLrIl(self):
+        self.nowLight = float(self.view.eRow3Col3.get())
+        self.q.setRemoData('Sandi Living Room','il', self.nowLight)
+        self.view.eRow3Col3.delete(0,10)
+        self.view.eRow3Col3["fg"] = "green"
+        self.view.eRow3Col3.insert(0,self.nowLight)
+
+    def updateRemBrTemp(self):
+        self.nowTemp = self.q.updateRemoData('Sandi Bedroom','te')
+        self.view.eRow3Col4.delete(0,10)
+        self.view.eRow3Col4["fg"] = "black"
+        self.view.eRow3Col4.insert(0,self.nowTemp)
+
+    def getRemBrTemp(self):
+        self.nowTemp = self.q.getRemoData('Sandi Bedroom','te')
+        self.view.eRow3Col4.delete(0,10)
+        self.view.eRow3Col4.insert(0,self.nowTemp)
+
+    def setRemBrTemp(self):
+        self.nowTemp = float(self.view.eRow3Col4.get())
+        self.q.setRemoData('Sandi Bedroom','te', self.nowTemp)
+        self.view.eRow3Col4.delete(0,10)
+        self.view.eRow3Col4["fg"] = "green"
+        self.view.eRow3Col4.insert(0,self.nowTemp)
+
+    def updateRemBrIl(self):
+        self.nowLight = self.q.updateRemoData('Sandi Bedroom','il')
+        self.view.eRow3Col5.delete(0,10)
+        self.view.eRow3Col5["fg"] = "black"
+        self.view.eRow3Col5.insert(0,self.nowLight)
+
+    def getRemBrIl(self):
+        self.nowLight = self.q.getRemoData('Sandi Bedroom','il')
+        self.view.eRow3Col5.delete(0,10)
+        self.view.eRow3Col5.insert(0,self.nowLight)
+
+    def setRemBrIl(self):
+        self.nowLight = float(self.view.eRow3Col5.get())
+        self.q.setRemoData('Sandi Bedroom','il', self.nowLight)
+        self.view.eRow3Col5.delete(0,10)
+        self.view.eRow3Col5["fg"] = "green"
+        self.view.eRow3Col5.insert(0,self.nowLight)
+
+    def updateGasRelay(self):
+        self.gr = self.view.sRow15Col0.get()
+        print(self.gr)
+        if self.gr == "ON":
+            automationhat.relay.one.off()
+        elif self.gr == "OFF":
+            automationhat.relay.one.on()
+        self.q.setGasRelay(self.gr)
+        
+    def getGasRelay(self):
+        self.gr = self.q.getGasRelay()
+        self.view.sRow15Col0.delete(0,10)
+        self.view.sRow15Col0.insert(0,self.gr)
+        
+    def getRemBrCmd(self):
+        self.lastCommand = self.q.getLastRemoCmd('brRemoCommand')
+        self.view.sRow15Col1.delete(0,10)
+        self.view.sRow15Col1.insert(0,self.lastCommand)
+        
+    def getRemLrCmd(self):
+        self.lastCommand = self.q.getLastRemoCmd('lrRemoCommand')
+        self.view.sRow15Col2.delete(0,10)
+        self.view.sRow15Col2.insert(0,self.lastCommand)
+        
+    def updateRemoSignals(self):
+        self.q.updateRemoSignals()
 
     def showRemLrTemp(self): #NEEDS UPDATE
         self.q.readQ()
@@ -190,6 +272,21 @@ class MagicBoxController(object):
         self.view.bRow1Col2["command"] = self.updateRemLrTemp
         self.view.bRow2Col2["command"] = self.getRemLrTemp
         self.view.bRow5Col2["command"] = self.setRemLrTemp
+        self.view.bRow1Col3["command"] = self.updateRemLrIl
+        self.view.bRow2Col3["command"] = self.getRemLrIl
+        self.view.bRow5Col3["command"] = self.setRemLrIl
+        self.view.bRow1Col4["command"] = self.updateRemBrTemp
+        self.view.bRow2Col4["command"] = self.getRemBrTemp
+        self.view.bRow5Col4["command"] = self.setRemBrTemp
+        self.view.bRow1Col5["command"] = self.updateRemBrIl
+        self.view.bRow2Col5["command"] = self.getRemBrIl
+        self.view.bRow5Col5["command"] = self.setRemBrIl
+        self.view.bRow13Col0["command"] = self.updateGasRelay
+        self.view.bRow14Col0["command"] = self.getGasRelay
+        self.view.bRow14Col1["command"] = self.getRemBrCmd
+        self.view.bRow14Col2["command"] = self.getRemLrCmd
+
+        self.view.bRow13Col5["command"] = self.updateRemoSignals
         
 #        self.view.bRow1Col3["command"] = self.showRemLrRH
 #        self.view.bRow1Col4["command"] = self.showRemBrTemp
